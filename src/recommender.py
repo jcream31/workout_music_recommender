@@ -1,22 +1,41 @@
+import pandas as pd
+
 class Recommend(object):
     """docstring for Recommend."""
-    def __init__(self, arg):
-        self.arg = arg
+    def __init__(self, song_db):
+        self.song_db = song_db
+        self.like_pl = []
+        self.dont_like_pl = []
 
-    def playlist_data(self, user, playlist):
+    def add_playlist(self, playlist):
+        self.playlist = playlist
+
+    def data_as_array(df):
+        self.X = df[['acousticness', 'instrumentalness', 'valence',
+                     'danceability', 'energy']].values
+
+    def calc_dist_mat(self):
+
+
+    def like_song(self, track):
+        pass
+
+    def dont_like_song(self, track):
+        pass
+
+    def recommend(self):
+        pass
+
+    def get_playlist_data(self, track_ids, access_token):
         '''Takes the user's selected playlist and
-           retursns data for all tracks'''
+           returns data for all tracks (up to 100)'''
 
-        r = requests.get("https://api.spotify.com/v1/users/{0}/playlists/{1}/tracks".format(user, playlist),
-                         headers={'Authorization': 'Bearer {}'.format(token['access_token'])})
+        r = requests.get("https://api.spotify.com/v1/audio-features/?ids={0}".format(','.join(track_ids)),
+                         headers={'Authorization': 'Bearer {}'.format(access_token)})
         if r.status_code == 200:
-            return r.json()['artists']['items'][0]['id']
+            track_data = r.json()
+            return pd.DataFrame(track_data['audio_features'])
         else:
             raise IOError('Spotify API request unsuccessful. \
                            Status code:{}'.format(r.status_code))
-
-
-    def calc_dist():
-
-
-    def
+    

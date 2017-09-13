@@ -1,6 +1,5 @@
 import pandas as pd
 import time
-from urllib.parse import quote
 import requests
 from auth import Token
 import pickle
@@ -45,9 +44,9 @@ def generate_track_df(artist_list):
     return pd.DataFrame(songs)
 
 
-def get_track_features(track_id):
+def get_track_features(track_id, access_token):
     r = requests.get("https://api.spotify.com/v1/audio-features/{0}".format(track_id),
-                     headers={'Authorization': 'Bearer {}'.format(token['access_token'])})
+                     headers={'Authorization': 'Bearer {}'.format(access_token)})
     if r.status_code == 200:
         return r.json()
     else:
@@ -59,15 +58,15 @@ if __name__ == "__main__":
     authorization.load_secrets()
     token = authorization.get_token()
     # artists is a list of tuples: (artist_id, artist_name)
-    # with open ('artists.p','rb') as fp:
-    #     artists = pickle.load(fp)
-    #
-    # track_df = generate_track_df(artists)
-    # with open ('tracks.p','wb') as fp:
-    #     pickle.dump(track_df, fp)
+    with open ('artists.p','rb') as fp:
+        artists = pickle.load(fp)
 
-    with open ('tracks.p','rb') as fp:
-        track_df = pickle.load(fp)
+    track_df = generate_track_df(artists)
+    with open ('tracks.p','wb') as fp:
+        pickle.dump(track_df, fp)
+
+    # with open ('tracks.p','rb') as fp:
+    #     track_df = pickle.load(fp)
 
     error_file = open("error_songs.txt", "w")
     refresh_token = 0
@@ -77,7 +76,7 @@ if __name__ == "__main__":
         if refresh_token%10==0:
             token = authorization.get_token()
         try :
-            track_data.append(get_track_features(song))
+            track_data.append(get_track_features(song,token['access_token']))
         except ValueError:
             print("problem with song {}".format(song))
             error_file.write(i[0])
