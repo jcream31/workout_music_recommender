@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- <head>
-	<style>
-		body{
-			background-image: url('../static/graffiti_background2.jpg')
-		}
-	</style>
-</head> -->
+<head>
+	<!-- Custom styles for this template -->
+	<link href="../../static/css/thumbnail-gallery.css" rel="stylesheet">
+<style>
+	ol {
+	    width:320px;
+		margin-left: 50px;
+	    font-style:italic;
+	    font-family:Courier;
+	    font-size:18px;
+	    opacity: .8;
+	    background: #f0f0f5;
+	}
+
+	ol li { margin-left: 5px; }
+	ol li p {
+	    padding:8px;
+		margin-left: 5px;
+	    font-style:normal;
+	    font-family:Courier;
+	    font-size:16px;
+	    color:#000000;
+	    border-left: 1px solid #999; }
+	ol li p em { display:block; }
+	img{
+		margin-right: 50px;
+    	float:right;
+		opacity: .9;
+	}
+
+</style>
+</head>
 
 <body>
-	<img src="data:image/png;base64, {{ plot_url }}">
+	<div id="list1">
+		<img src="data:image/png;base64, {{ plot_url }}" >
+
+   		<ol>
+			{% for i in tracks %}
+				<li><p><em>{{i[1]}}</em>{{i[2]}}</p></li>
+			{% endfor %}
+   		</ol>
+	</div>
+
+
+
 </body>
 </html>
-
-<!-- <body>
-	<p><a >{{ id }}</a></p>
-
-</body>
-</html> -->

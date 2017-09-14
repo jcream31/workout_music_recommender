@@ -116,13 +116,22 @@ def playlist_data(pl_owner, pl_id):
         raise IOError(pl_track_endpoint + ' ' + pl_track_response.content)
     pl_tracks= pl_track_response.json()
 
-    track_names=[track['track']['name'] for track in pl_tracks['items']]
-    track_ids = [pl['track']['id'] for pl in pl_tracks["items"]]
-    tracks = zip(track_ids, track_names)
+    track_names   = []
+    track_ids     = []
+    track_artists = []
+    for track in pl_tracks['items']:
+        track_names.append(track['track']['name'])
+        track_ids.append(track['track']['id'])
+        temp = []
+        for artist in track['track']['artists']:
+            temp.append(artist['name'])
+        track_artists.append(', '.join(temp))
+    tracks = zip(track_ids, track_names, track_artists)
 
     track_df = recommender.get_playlist_data(track_ids, session['access_token'])
 
-    return render_template('playlist.html', plot_url = build_histograms(track_df))
+    return render_template('playlist.html', plot_url = build_histograms(track_df),
+                            tracks = tracks)
 
 
 if __name__ == "__main__":
