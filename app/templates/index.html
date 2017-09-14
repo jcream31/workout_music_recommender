@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Workout Music Recommender</title>
+
+    <!-- My style specs -->
+    <style>
+    body{
+        background-image: url('../static/graffiti_background2.jpg')
+    }
+
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: .5s ease;
+      background-color: #000000;
+    }
+
+    .container:hover .overlay {
+      opacity: .9;
+    }
+
+    .text {
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+    }
+
+    </style>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/thumbnail-gallery.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <h1 class="my-4 text-center text-lg-left" style="color:#f2f2f2;">Choose Your Playlist</h1>
+
+      <div class="row text-center text-lg-left">
+
+          {% for i in playlists %}
+          <div class="col-lg-3 col-md-4 col-xs-6">
+          	<a href="{{ url_for('playlist_data', pl_owner=i[0], pl_id=i[1]) }}" class="d-block mb-4 h-100">
+                <img class="img-fluid img-thumbnail" src={{i[3]}} alt="" height="300" width="300">
+                <div class="overlay">
+                    <div class="text">{{i[2]}}</div>
+                </div>
+           </a>
+          </div>
+
+          {% endfor %}
+
+      </div>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Julie Creamer 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/popper/popper.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>
