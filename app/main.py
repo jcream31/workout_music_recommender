@@ -127,15 +127,17 @@ def playlist_data(pl_owner, pl_id):
             temp.append(artist['name'])
         track_artists.append(', '.join(temp))
     tracks = zip(track_ids, track_names, track_artists)
+    recommender.get_playlist_data(track_ids, session['access_token'])
+    # recommender.add_playlist(track_ids)
 
-    track_df = recommender.get_playlist_data(track_ids, session['access_token'])
-
-    return render_template('playlist.html', plot_url = build_histograms(track_df),
+    return render_template('playlist.html', 
+                            plot_url = build_histograms(recommender.playlist),
                             tracks = tracks)
 
 
 if __name__ == "__main__":
     import cPickle as pickle
-    song_db = pickle.load( open( "../data/complete_data_py2.p", "rb" ) )
+    with open ('../data/complete_data_py2.p', 'rb') as fp:
+        song_db = pickle.load(fp)
     recommender = Recommend(song_db)
     app.run(debug=True,port=PORT)
