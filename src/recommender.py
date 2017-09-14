@@ -1,4 +1,6 @@
 import pandas as pd
+import requests
+
 
 class Recommend(object):
     """docstring for Recommend."""
@@ -15,7 +17,7 @@ class Recommend(object):
                      'danceability', 'energy']].values
 
     def calc_dist_mat(self):
-
+        pass
 
     def like_song(self, track):
         pass
@@ -38,4 +40,3 @@ class Recommend(object):
         else:
             raise IOError('Spotify API request unsuccessful. \
                            Status code:{}'.format(r.status_code))
-    
