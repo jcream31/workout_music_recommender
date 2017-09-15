@@ -145,7 +145,7 @@ def like_song(track_id):
 
 @app.route('/dislike_song/<track_id>', methods=['GET', 'POST'])
 def dislike_song(track_id):
-    recommender.dont_like_song(track_id)
+    recommender.dislike_song(track_id)
     return (''), 204
 
 if __name__ == "__main__":
