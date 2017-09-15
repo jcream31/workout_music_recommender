@@ -28,7 +28,8 @@
                 <a href="{{ url_for('like_song', track_id=rec[2])}}" class="btn btn-lg btn-success">LIKE</a>
             <div class="col-m-3"></div>
                 <a href="{{ url_for('dislike_song', track_id=rec[2])}}" class="btn btn-lg btn-danger">MEH</a>
-                <!-- <p><h2 style="color:white;">{{rec[2]}}</h2></p> -->
+			<div class="col-m-3"></div>
+				<a href="{{ url_for('recommendations')}}" class="btn btn-lg btn-info">RECOMMEND A TRACK</a>
         </div>
 
     </div>
