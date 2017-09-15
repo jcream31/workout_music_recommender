@@ -128,12 +128,25 @@ def playlist_data(pl_owner, pl_id):
         track_artists.append(', '.join(temp))
     tracks = zip(track_ids, track_names, track_artists)
     recommender.get_playlist_data(track_ids, session['access_token'])
-    # recommender.add_playlist(track_ids)
 
-    return render_template('playlist.html', 
+    return render_template('playlist.html',
                             plot_url = build_histograms(recommender.playlist),
                             tracks = tracks)
 
+@app.route('/recommendations', methods=['GET', 'POST'])
+def recommendations( ):
+    suggestion = recommender.recommend()
+    return render_template('recommender.html', rec = suggestion)
+
+@app.route('/like_song/<track_id>', methods=['GET', 'POST'])
+def like_song(track_id):
+    recommender.like_song(track_id)
+    return (''), 204
+
+@app.route('/dislike_song/<track_id>', methods=['GET', 'POST'])
+def dislike_song(track_id):
+    recommender.dont_like_song(track_id)
+    return (''), 204
 
 if __name__ == "__main__":
     import cPickle as pickle

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Tracks and Features of Your Playlist</title>
+
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="../../static/css/thumbnail-gallery.css" rel="stylesheet">
+<style>
+    .btn {
+        margin-left: 20px;
+
+    }
+</style>
+</head>
+<body>
+    <!-- <ol>
+        {% for i in pl_data %}
+            <li><p><em>{{i}}</p></li>
+        {% endfor %}
+    </ol> -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-m-6"></div>
+                <h2 style="color:white;">Checkout <em>{{rec[0]}}</em> by {{rec[1]}}</h1>
+            <div class="col-m-3"></div>
+                <a href="{{ url_for('like_song', track_id=rec[2])}}" class="btn btn-lg btn-success">LIKE</a>
+            <div class="col-m-3"></div>
+                <a href="{{ url_for('dislike_song', track_id=rec[2])}}" class="btn btn-lg btn-danger">MEH</a>
+        </div>
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+</body>
+</html>

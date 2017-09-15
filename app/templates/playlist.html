@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>Tracks and Features of Your Playlist</title>
+
 	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
 	<link href="../../static/css/thumbnail-gallery.css" rel="stylesheet">
 <style>
 	ol {
-	    width:320px;
+	    width:500px;
 		margin-left: 50px;
 	    font-style:italic;
 	    font-family:Courier;
@@ -16,7 +20,7 @@
 
 	ol li { margin-left: 5px; }
 	ol li p {
-	    padding:8px;
+	    padding:2px;
 		margin-left: 5px;
 	    font-style:normal;
 	    font-family:Courier;
@@ -25,26 +29,63 @@
 	    border-left: 1px solid #999; }
 	ol li p em { display:block; }
 	img{
-		margin-right: 50px;
     	float:right;
 		opacity: .9;
+	}
+
+	.wrapper{
+	    width: 965px;
+		width: 1200px;
+
+	}
+	.col1{
+		margin-left: 20px;
+	    float: left;
+	    width: 320px;
+	}
+	.col2{
+		margin-right: 200px;
+		float: right;
+		width: 320px;
+	}
+	.btn {
+	    margin: 50px;
+
 	}
 
 </style>
 </head>
 
 <body>
-	<div id="list1">
-		<img src="data:image/png;base64, {{ plot_url }}" >
+	<div class="wrapper">
+		<div class="col1">
+			<h1 style="color:white;">Playlist Tracks:</h1>
+			<div id="list1">
+		   		<ol>
+					{% for i in tracks %}
+						<li><p><em>{{i[1]}}</em>{{i[2]}}</p></li>
+					{% endfor %}
+		   		</ol>
+			</div>
+		</div>
 
-   		<ol>
-			{% for i in tracks %}
-				<li><p><em>{{i[1]}}</em>{{i[2]}}</p></li>
-			{% endfor %}
-   		</ol>
+		<div class="col2">
+			<div class="row">
+
+				<h1 style="color:white;">Playlist Features:</h1>
+				<img src="data:image/png;base64, {{ plot_url }}" >
+			</div>
+			<div class="row">
+
+				<a href="{{ url_for('recommendations')}}" class="btn btn-lg btn-success">RECOMMEND A TRACK</a>
+			</div>
+		</div>
+
 	</div>
 
-
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
 </body>
 </html>
