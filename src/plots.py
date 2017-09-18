@@ -25,7 +25,7 @@ def build_histograms(track_df,
                  label = feature);
         labels = ax.get_xticklabels() + ax.get_yticklabels()
         [label.set_fontname(font) for label in labels]
-        ax.legend(loc="upper left")
+        ax.legend(loc="upper left", fontsize=12)
     # fig.savefig(img, format='png', bbox_inches='tight')
     fig.savefig(img, format='png')
 

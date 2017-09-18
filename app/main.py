@@ -133,9 +133,7 @@ def playlist_data(pl_owner, pl_id):
         track_artists.append(', '.join(temp))
     tracks = zip(track_ids, track_names, track_artists)
     recommender.get_playlist_data(track_ids, session['access_token'])
-    # resp = recommender.get_playlist_data(track_ids, session['access_token'])
 
-    # return render_template('tracks.html', tracks = resp)
     return render_template('tracks.html',
                             plot_url = build_histograms(recommender.playlist),
                             tracks = tracks)
