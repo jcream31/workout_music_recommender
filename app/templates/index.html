@@ -11,81 +11,35 @@
     <title>Workout Music Recommender</title>
 
     <style>
-    .overlay {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      opacity: 0;
-      transition: .5s ease;
-      background-color: #000000;
+    .h1{
+        margin-left: 10px;
     }
-
-    .container:hover .overlay {
-      opacity: .9;
-    }
-
-    .text {
-      color: white;
-      font-size: 20px;
-      position: absolute;
-      text-align: center;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
+    .h3{
+        margin-left: 10px;
     }
     </style>
-    
-    <!-- Bootstrap core CSS -->
-    <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="../static/css/thumbnail-gallery.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="../../static/css/thumbnail-gallery.css" rel="stylesheet">
 
   </head>
 
   <body>
 
-    <!-- Page Content -->
-    <div class="container">
+<h1 style="color:white;"> Welcome to Julie's Workout Music Recommender</h1><br>
+<h3 style="color:white;"> Scroll over the plot to checkout song similarites or
+                        <a href="{{ url_for('playlists')}}">select a playlist</a></h3>
+<br>
+<br>
+<div>
+    <a href="https://plot.ly/~jcream31/120/?share_key=Knl15JRfXsV9YxRwi7ENKj" target="_blank" title="Song Network" style="display: block; text-align: center;"><img src="https://plot.ly/~jcream31/120.png?share_key=Knl15JRfXsV9YxRwi7ENKj" alt="Song Network" style="max-width: 100%;width: 1200px;"  width="1200" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="jcream31:120" sharekey-plotly="Knl15JRfXsV9YxRwi7ENKj" src="https://plot.ly/embed.js" async></script>
+</div>
 
-      <h1 class="my-4 text-center text-lg-left" style="color:#f2f2f2;">Choose Your Playlist</h1>
 
-      <div class="row text-center text-lg-left">
-
-          {% for i in playlists %}
-          <div class="col-lg-3 col-md-4 col-xs-6">
-          	<a href="{{ url_for('playlist_data', pl_owner=i[0], pl_id=i[1]) }}" class="d-block mb-4 h-100">
-                <img class="img-fluid img-thumbnail" src={{i[3]}} alt="" height="300" width="300">
-                <div class="overlay">
-                    <div class="text">{{i[2]}}</div>
-                </div>
-           </a>
-          </div>
-
-          {% endfor %}
-
-      </div>
-
-    </div>
-    <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Julie Creamer 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="../static/vendor/jquery/jquery.min.js"></script>
-    <script src="../static/vendor/popper/popper.min.js"></script>
-    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 
   </body>
 

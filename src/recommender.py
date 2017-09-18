@@ -21,8 +21,8 @@ class Recommend(object):
         r = requests.get("https://api.spotify.com/v1/audio-features/?ids={0}".format(','.join(track_ids)),
                          headers={'Authorization': 'Bearer {}'.format(access_token)})
         if r.status_code == 200:
-            track_data = r.json()
-            self.playlist = pd.DataFrame(track_data['audio_features'])
+            track_data =  r.json()['audio_features']
+            self.playlist = pd.DataFrame(track_data)
             self.like_dist = self.calc_dist_mat(self.playlist)
             self.song_df = self.song_df.append(self.playlist, ignore_index=True)
             self.song_df.drop_duplicates(inplace=True)
@@ -61,9 +61,10 @@ class Recommend(object):
 
         # sorts from smallest to largest dist
         most_similar = np.argsort(total_dist)
-        for i in most_similar:
-            if i not in self.played:
-                self.played.append(i)
-                return (self.song_df.iloc[i]['song'],
-                        self.song_df.iloc[i]['artist'],
-                        self.song_df.iloc[i]['id'])
+        tempos = self.song_df.iloc[most_similar]['tempo'].values
+        for i, song_ind in enumerate(most_similar):
+            if song_ind not in self.played:
+                self.played.append(song_ind)
+                return (self.song_df.iloc[song_ind]['song'],
+                        self.song_df.iloc[song_ind]['artist'],
+                        self.song_df.iloc[song_ind]['id'])

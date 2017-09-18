@@ -1,7 +1,7 @@
 ### THIS CURRENTLY ONLY WORKS FOR PYTHON 2 ###
 
 import json
-from flask import Flask, request, redirect, g, render_template, session
+from flask import Flask, request, redirect, g, render_template, session, jsonify
 from flask_session import Session
 import requests
 import base64
@@ -87,6 +87,11 @@ def callback():
     profile_data = profile_response.json()
     session['profile_href'] = profile_data["href"]
 
+    return render_template("index.html")
+
+
+@app.route("/playlists")
+def playlists():
     # Get user playlist data
     playlist_api_endpoint = "{}/playlists".format(session['profile_href'])
     playlists_response = requests.get(playlist_api_endpoint, headers=session['auth_header'])
@@ -103,7 +108,7 @@ def callback():
         pl_ids.append(pl['id'])
         pl_images.append(pl['images'][0]['url'])
     playlists = zip(pl_owners, pl_ids, pl_names, pl_images)
-    return render_template("index.html",playlists=playlists)
+    return render_template("playlists.html",playlists=playlists)
 
 @app.route('/playlist_data/<pl_owner>/<pl_id>', methods=['GET', 'POST'])
 def playlist_data(pl_owner, pl_id):
@@ -128,13 +133,15 @@ def playlist_data(pl_owner, pl_id):
         track_artists.append(', '.join(temp))
     tracks = zip(track_ids, track_names, track_artists)
     recommender.get_playlist_data(track_ids, session['access_token'])
+    # resp = recommender.get_playlist_data(track_ids, session['access_token'])
 
-    return render_template('playlist.html',
+    # return render_template('tracks.html', tracks = resp)
+    return render_template('tracks.html',
                             plot_url = build_histograms(recommender.playlist),
                             tracks = tracks)
 
 @app.route('/recommendations', methods=['GET', 'POST'])
-def recommendations( ):
+def recommendations():
     suggestion = recommender.recommend()
     return render_template('recommender.html', rec = suggestion)
 

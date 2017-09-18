@@ -11,31 +11,88 @@
         margin-left: 20px;
 
     }
+	h2 {
+		margin-left: 100px;
+
+	}
+	h4 {
+		margin-left: 100px;
+
+	}
+	#slidecontainer {
+    width: 50%;
+	margin-left: 100px;
+}
+
+	.slider {
+	    -webkit-appearance: none;
+	    width: 100%;
+	    height: 15px;
+	    border-radius: 5px;
+	    background: #d3d3d3;
+	    outline: none;
+	    opacity: 0.7;
+	    -webkit-transition: .2s;
+	    transition: opacity .2s;
+	}
+
+	.slider:hover {
+	    opacity: 1;
+	}
+
+	.slider::-webkit-slider-thumb {
+	    -webkit-appearance: none;
+	    appearance: none;
+	    width: 25px;
+	    height: 25px;
+	    border-radius: 50%;
+	    background: #4CAF50;
+	    cursor: pointer;
+	}
+
+	.slider::-moz-range-thumb {
+	    width: 25px;
+	    height: 25px;
+	    border-radius: 50%;
+	    background: #4CAF50;
+	    cursor: pointer;
+	}
 </style>
 </head>
 <body>
-    <!-- <ol>
-        {% for i in pl_data %}
-            <li><p><em>{{i}}</p></li>
-        {% endfor %}
-    </ol> -->
+	<h2 style="color:white;"><em>{{rec[0]}}</em> by {{rec[1]}}</h1>
+	<br>
     <div class="container">
-
         <div class="row">
-            <div class="col-m-6"></div>
-                <h2 style="color:white;"><em>{{rec[0]}}</em> by {{rec[1]}}</h1>
             <div class="col-m-3"></div>
                 <a href="{{ url_for('like_song', track_id=rec[2])}}" class="btn btn-lg btn-success">LIKE</a>
             <div class="col-m-3"></div>
                 <a href="{{ url_for('dislike_song', track_id=rec[2])}}" class="btn btn-lg btn-danger">MEH</a>
-			<div class="col-m-3"></div>
-				<a href="{{ url_for('recommendations')}}" class="btn btn-lg btn-info">RECOMMEND A TRACK</a>
+			<div class="col-m-6"></div>
+				<a href="{{ url_for('recommendations')}}" class="btn btn-lg btn-info">RECOMMEND NEXT TRACK</a>
         </div>
 
     </div>
 
+	<br><br>
+	<h4 style="color:white;">Filter recommendations by tempo:</h4>
+	<br>
 
+	<div id="slidecontainer">
+	  <input type="range" min="50" max="200" value="125" class="slider" id="BPMrange" name="bpm_slider">
+	  <p style="color:white;">BPM:<span id="bpm"></span></p>
+	</div>
 
+	<script>
+	var slider = document.getElementById("BPMrange");
+	var output = document.getElementById("bpm");
+	output.innerHTML = slider.value;
+
+	slider.oninput = function() {
+	  output.innerHTML = this.value;
+	}
+	</script>
+	
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
