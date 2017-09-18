@@ -10,7 +10,8 @@ import sys
 sys.path.append("../src")
 from auth import Token
 from recommender import Recommend
-from plots import build_histograms
+from plots import build_histograms, build_HR
+import serial
 
 
 #  Client Keys
@@ -135,7 +136,7 @@ def playlist_data(pl_owner, pl_id):
     recommender.get_playlist_data(track_ids, session['access_token'])
 
     return render_template('tracks.html',
-                            plot_url = build_histograms(recommender.playlist),
+                            hist_plot_url = build_histograms(recommender.playlist),
                             tracks = tracks)
 
 @app.route('/recommendations', methods=['GET', 'POST'])
@@ -152,6 +153,24 @@ def like_song(track_id):
 def dislike_song(track_id):
     recommender.dislike_song(track_id)
     return (''), 204
+
+@app.route("/get_HR/")
+def get_HR():
+    arduino = serial.Serial('/dev/cu.usbserial-DN00BZ06', 115200)
+    time = []
+    light_int = []
+    while len(time) < 80:
+        line = arduino.readline()
+        if 'HEART' in line:
+            line = line.rstrip().split(';')
+            time.append(int(line[0]))
+            light_int.append(int(line[2]))
+    time = [x-min(time) for x in time]
+
+
+    return render_template('recommender.html', rec = recommender.recommend(),
+                            hr_plot_url = build_HR(zip(time, light_int)))
+
 
 if __name__ == "__main__":
     import cPickle as pickle
